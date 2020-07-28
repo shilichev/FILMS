@@ -26,8 +26,8 @@ const getRandomFilm = async (apiLink) => {
   const filmData = await $.ajax({
     url: apiLink,
     dataType: "json",
-    success: getRandomFilms,
   });
+  console.log(filmData);
   filmsData.push(filmData);
 };
 
