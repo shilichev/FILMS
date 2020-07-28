@@ -1,18 +1,11 @@
 let randomId = [];
 API_ID = [];
-
+filmsData = [];
 const getRandomInt = () => {
   for (i = 0; i < 5; i++) {
     randomId.push(`${Math.floor(Math.random() * Math.floor(9999999))}`);
   }
   return randomId;
-};
-
-const showFilmsFromSearch = (films) => {
-  for (i = 0; i < 5; i++) {
-    console.log(films);   
-    $("ul").append(`<li><img src="${films.Search[i].Poster}"></li>`);
-  }
 };
 
 const getAPI = () => {
@@ -23,28 +16,44 @@ const getAPI = () => {
 };
 console.log(API_ID);
 
-const getRandomFilms = () => {
-  $.ajax({
-    url: API_ID[0],
+const getRandomFilms = async () => {
+  for (i = 0; i < 5; i++) {
+    await getFilm(API_ID[i]);
+  }
+};
+
+const getRandomFilm = async (apiLink) => {
+  const filmData = await $.ajax({
+    url: apiLink,
     dataType: "json",
-    success: showFilmsFromSearch,
+    success: getRandomFilms,
   });
+  filmsData.push(filmData);
 };
 
 $(document).ready(function () {
   getRandomInt();
   getAPI();
-  showFilmsFromSearch();
+  getRandomFilm(); //   showFilmsFromSearch();
 });
+// const showFilmsFromSearch = (films) => {
+//   for (i = 0; i < 5; i++) {
+//     console.log(films);
+//     $("ul").append(`<li><img src="${films.Search[i].Poster}"></li>`);
+//   }
+// };
+
 //   console.log(films.Search[1].Poster);
 // };
 
 // console.log(randomId);
+
 // const getFilmsList = (filmsList) => {
 //   // filteredContributors = filmsList;
 //   // contributors = sorteringContributors(contributorsList, true);
 //   showFilmsFromSearch(filmsList);
 // };
+
 // const getFilms = () => {
 //   //   for (i = 0; i < 5; i++) {
 //   $.ajax({
@@ -54,9 +63,11 @@ $(document).ready(function () {
 //   });
 //   //   }
 // };
+
 // getFilms();
 
 // getFilmsList();
+
 // console.log(getFilmsList());
 
 // $(document).ready(function () {
