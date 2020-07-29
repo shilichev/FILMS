@@ -65,7 +65,7 @@ const showError = () => {
   alert("MOVIE NOT FOUND!");
 };
 $(document).ready(function () {
-  let width = 130; // ширина картинки
+  let width = 250; // ширина картинки
   let count = 3; // видимое количество изображений
 
   let list = carousel.querySelector("ul");

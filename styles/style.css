@@ -5,23 +5,30 @@ body {
 
 .carousel {
   position: relative;
-  width: 398px;
-  padding: 10px 40px;
-  border: 1px solid #CCC;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 758px;
+  padding: 110px 40px;
+  border: 1px solid #ccc;
   border-radius: 15px;
   background: #eee;
+  margin: 20px auto;
 }
 
 .carousel img {
-  width: 130px;
-  height: 130px;
+  width: 250px;
+  height: 380px;
   /* делаем этот элемент блочным, чтобы убрать лишнее пространство вокруг картинок */
   display: block;
 }
 
 .arrow {
   position: absolute;
-  top: 60px;
+  top: 300px;
   padding: 0;
   background: #ddd;
   border-radius: 15px;
@@ -50,12 +57,12 @@ body {
 }
 
 .gallery {
-  width: 390px;
+  width: 750px;
   overflow: hidden;
 }
 
 .gallery ul {
-  height: 130px;
+  height: 380px;
   width: 9999px;
   margin: 0;
   padding: 0;
