@@ -1,24 +1,19 @@
 let randomId = [];
-API_ID = [];
+API_ID_START = [
+  "http://www.omdbapi.com/?t=green+book&apikey=d139291d",
+  "http://www.omdbapi.com/?t=The+Shawshank+Redemption&apikey=d139291d",
+  "http://www.omdbapi.com/?t=The+Godfather&apikey=d139291d",
+  "http://www.omdbapi.com/?t=The+Dark+Knight&apikey=d139291d",
+  "http://www.omdbapi.com/?t=Schindler's+List&apikey=d139291d",
+];
+let API_ID_SEARCH;
+let data;
 filmsData = [];
-const getRandomInt = () => {
-  for (i = 0; i < 5; i++) {
-    randomId.push(`${Math.floor(Math.random() * Math.floor(9999999))}`);
-  }
-  return randomId;
-};
-
-const getAPI = () => {
-  for (i = 0; i < 5; i++) {
-    API_ID.push(`http://www.omdbapi.com/?i=tt${randomId[i]}&apikey=d139291d`);
-  }
-  return API_ID;
-};
-console.log(API_ID);
+let numberOfFilms = 5;
 
 const getRandomFilms = async () => {
   for (i = 0; i < 5; i++) {
-    await getFilm(API_ID[i]);
+    await getRandomFilm(API_ID_START[i]);
   }
 };
 
@@ -27,73 +22,70 @@ const getRandomFilm = async (apiLink) => {
     url: apiLink,
     dataType: "json",
   });
-  console.log(filmData);
+  console.log(filmsData);
   filmsData.push(filmData);
+  showStartFilms(filmsData);
+};
+
+const showStartFilms = (films) => {
+  $("ul").append(`<li><img src="${films[i].Poster}"></li>`);
 };
 
 $(document).ready(function () {
-  getRandomInt();
-  getAPI();
-  getRandomFilm(); //   showFilmsFromSearch();
+  getRandomFilms();
 });
-// const showFilmsFromSearch = (films) => {
-//   for (i = 0; i < 5; i++) {
-//     console.log(films);
-//     $("ul").append(`<li><img src="${films.Search[i].Poster}"></li>`);
-//   }
-// };
 
-//   console.log(films.Search[1].Poster);
-// };
+$(".search_button").click(function () {
+  let searchString = $("#search_box").val();
+  data = searchString.replace(" ", "+");
+  console.log(data);
+  API_ID_SEARCH = `http://www.omdbapi.com/?s=${data}&apikey=d139291d`;
+  getFilms(API_ID_SEARCH);
+});
 
-// console.log(randomId);
+const getFilms = (appLink) => {
+  $.ajax({
+    url: appLink,
+    dataType: "json",
+    success: showFilmsFromSearch,
+  });
+};
+const showFilmsFromSearch = (films) => {
+  if (films.Search) {
+    $("li").remove();
+    for (i = 0; i < 10; i++) {
+      $("ul").append(`<li><img src="${films.Search[i].Poster}"></li>`);
+    }
+    numberOfFilms = 10;
+    return;
+  }
+  showError();
+};
+const showError = () => {
+  alert("MOVIE NOT FOUND!");
+};
+$(document).ready(function () {
+  let width = 130; // ширина картинки
+  let count = 3; // видимое количество изображений
 
-// const getFilmsList = (filmsList) => {
-//   // filteredContributors = filmsList;
-//   // contributors = sorteringContributors(contributorsList, true);
-//   showFilmsFromSearch(filmsList);
-// };
+  let list = carousel.querySelector("ul");
 
-// const getFilms = () => {
-//   //   for (i = 0; i < 5; i++) {
-//   $.ajax({
-//     url: API_ID,
-//     dataType: "json",
-//     success: getFilmsList,
-//   });
-//   //   }
-// };
+  let position = 0; // положение ленты прокрутки
 
-// getFilms();
+  carousel.querySelector(".prev").onclick = function () {
+    // сдвиг влево
+    position += width * count;
+    // последнее передвижение влево может быть не на 3, а на 2 или 1 элемент
+    position = Math.min(position, 0);
+    list.style.marginLeft = position + "px";
+  };
 
-// getFilmsList();
+  carousel.querySelector(".next").onclick = function () {
+    // сдвиг вправо
+    position -= width * count;
+    // последнее передвижение вправо может быть не на 3, а на 2 или 1 элемент
 
-// console.log(getFilmsList());
-
-// $(document).ready(function () {
-//   /* конфигурация */
-//   let width = 130; // ширина картинки
-//   let count = 3; // видимое количество изображений
-
-//   let list = carousel.querySelector("ul");
-
-//   let position = 0; // положение ленты прокрутки
-
-//   carousel.querySelector(".prev").onclick = function () {
-//     // сдвиг влево
-//     position += width * count;
-//     // последнее передвижение влево может быть не на 3, а на 2 или 1 элемент
-//     position = Math.min(position, 0);
-//     list.style.marginLeft = position + "px";
-//   };
-
-//   carousel.querySelector(".next").onclick = function () {
-//     // сдвиг вправо
-//     position -= width * count;
-//     // последнее передвижение вправо может быть не на 3, а на 2 или 1 элемент
-
-//     position = Math.max(position, -width * (10 - count));
-//     list.style.marginLeft = position + "px";
-//   };
-// });
-// getFilms();
+    position = Math.max(position, -width * (numberOfFilms - count));
+    list.style.marginLeft = position + "px";
+  };
+});
