@@ -6,8 +6,8 @@ body {
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 758px;
-  padding: 110px 40px;
+  width: 80%;
+  padding: 200px 100px;
   border: 1px solid #ccc;
   border-radius: 15px;
   background: #eee;
@@ -15,21 +15,23 @@ body {
 }
 
 .carousel img {
-  width: 250px;
-  height: 380px;
+  position: relative;
+  align-items: center;
+  width: 200px;
+  height: 300px;
   /* делаем этот элемент блочным, чтобы убрать лишнее пространство вокруг картинок */
   display: block;
 }
 
 .arrow {
   position: absolute;
-  top: 300px;
+  top: 350px;
   padding: 0;
   background: #ddd;
-  border-radius: 15px;
+  border-radius: 34px;
   border: 1px solid gray;
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 34px;
+  line-height: 34px;
   color: #444;
   display: block;
 }
@@ -44,20 +46,20 @@ body {
 }
 
 .prev {
-  left: 7px;
+  left: 17px;
 }
 
 .next {
-  right: 7px;
+  right: 17px;
 }
 
 .gallery {
-  width: 750px;
+  width: 1260px;
   overflow: hidden;
 }
 
 .gallery ul {
-  height: 380px;
+  height: 420px;
   width: 9999px;
   margin: 0;
   padding: 0;
@@ -68,4 +70,35 @@ body {
 
 .gallery li {
   display: inline-block;
+}
+
+.forSearch {
+  margin: 20px auto;
+  text-align: center;
+}
+.filmBlock {
+  display: flex;
+  position: relative;
+  width: 610px;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid rgb(189, 189, 189);
+  background-color: rgb(216, 216, 216);
+}
+.poster {
+  position: absolute;
+}
+.title {
+  color: rgb(165, 165, 165);
+  font-size: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  position: absolute;
+  right: 15px;
+  top: 5px;
+}
+.runTime {
+  top: 40px;
+}
+.year {
+  top: 260px;
 }

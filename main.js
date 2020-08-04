@@ -22,13 +22,17 @@ const getRandomFilm = async (apiLink) => {
     url: apiLink,
     dataType: "json",
   });
-  console.log(filmsData);
   filmsData.push(filmData);
   showStartFilms(filmsData);
 };
 
 const showStartFilms = (films) => {
-  $("ul").append(`<li><img src="${films[i].Poster}"></li>`);
+  $("ul").append(
+    `<li class="filmBlock"><img class = "poster" src = "${films[i].Poster}">
+     <div class = "title"><p><b>${films[i].Title}</b></p>  </div>
+     <div class = "year title"><p><b>Year: ${films[i].Year} </b></p></div> 
+     <div class = "runTime title"><p><b>Run Time: ${films[i].Runtime} </b></p></div> </li>`
+  );
 };
 
 $(document).ready(function () {
@@ -54,7 +58,11 @@ const showFilmsFromSearch = (films) => {
   if (films.Search) {
     $("li").remove();
     for (i = 0; i < 10; i++) {
-      $("ul").append(`<li><img src="${films.Search[i].Poster}"></li>`);
+      $("ul")
+        .append(`<li class="filmBlock"><img class = "poster" src = "${films.Search[i].Poster}">
+      <div class = "title"><p><b>${films.Search[i].Title}</b></p>  </div>
+      <div class = "year title"><p><b>Year: ${films.Search[i].Year} </b></p></div> 
+      </li>`);
     }
     numberOfFilms = 10;
     return;
@@ -65,8 +73,8 @@ const showError = () => {
   alert("MOVIE NOT FOUND!");
 };
 $(document).ready(function () {
-  let width = 250; // ширина картинки
-  let count = 3; // видимое количество изображений
+  let width = 632; // ширина картинки
+  let count = 2; // видимое количество изображений
 
   let list = carousel.querySelector("ul");
 
